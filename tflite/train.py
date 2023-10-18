@@ -1,14 +1,7 @@
 import tensorflow as tf
-#from keras import layers, models
+from keras import layers, models
 from keras.preprocessing.image import ImageDataGenerator
 import os
-# from tflite_model_maker import ExportFormat
-from tflite_model_maker import model_spec
-# from tflite_model_maker import image_classifier
-
-from tflite_model_maker.image_classifier import create as ImageClassifierCreate, ImageClassifier
-
-from tflite_model_maker import ExportFormat
 
 # Define constants
 IMG_HEIGHT = 300
@@ -48,19 +41,23 @@ with open(labelsFilePath, 'w') as file:
     for index, label in enumerate(class_labels):
         file.write(f'{index} {label}\n')
 
+# Build the model
+model = models.Sequential([
+    layers.Conv2D(32, (3, 3), activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH, 3)),
+    layers.MaxPooling2D((2, 2)),
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D((2, 2)),
+    layers.Conv2D(128, (3, 3), activation='relu'),
+    layers.MaxPooling2D((2, 2)),
+    layers.Flatten(),
+    layers.Dense(128, activation='relu'),
+    layers.Dense(NUM_CLASSES, activation='softmax')
+])
 
-# # Build the model
-# model = models.Sequential([
-#     layers.Conv2D(32, (3, 3), activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH, 3)),
-#     layers.MaxPooling2D((2, 2)),
-#     layers.Conv2D(64, (3, 3), activation='relu'),
-#     layers.MaxPooling2D((2, 2)),
-#     layers.Conv2D(128, (3, 3), activation='relu'),
-#     layers.MaxPooling2D((2, 2)),
-#     layers.Flatten(),
-#     layers.Dense(128, activation='relu'),
-#     layers.Dense(NUM_CLASSES, activation='softmax')
-# ])
+# Compile the model
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
 
 # Define data generators for loading and augmenting data
 train_datagen = ImageDataGenerator(
@@ -86,26 +83,21 @@ test_generator = test_datagen.flow_from_directory(
     class_mode='sparse'
 )
 
-#Building the model
-#using EfficientNet Lite:
-spec = model_spec.get('efficientnet_lite0')
-model = ImageClassifierCreate(train_data=train_generator, model_spec=spec, epochs=NUM_EPOCHS)
-
-# Compile the model
-model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
-
-
 # Train the model
 model.fit(train_generator, epochs=NUM_EPOCHS, validation_data=test_generator)
 
 # Evaluate the model
 test_loss, test_accuracy = model.evaluate(test_generator)
-print(f'---Tests finished---\naccuracy: {test_accuracy} \nloss: {test_loss} \n---')
+print(f'Test accuracy: {test_accuracy}')
 
 # Save the model
-# model.save('models/model3/asl_model.keras')
+model.save(f'models/model{ITERATION}')
 
-#export model
-model.export(export_dir=f'models/model{ITERATION}')
+
+# Convert the model to TensorFlow Lite
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+tflite_model = converter.convert()
+
+# Save the TensorFlow Lite model
+with open(f'models/model{ITERATION}/asl_model.tflite', 'wb') as f:
+    f.write(tflite_model)
