@@ -19,11 +19,11 @@ prevKey = ord(".")
 np.set_printoptions(suppress=True)
 
 # Load the TensorFlow Lite model
-interpreter = tf.lite.Interpreter(model_path="models/model1/asl_model.tflite")
+interpreter = tf.lite.Interpreter(model_path="models/model2/asl_model2.tflite")
 interpreter.allocate_tensors()
 
 # Load the labels
-class_names = open("models/model1/labels.txt", "r").readlines()
+class_names = open("models/model2/labels.txt", "r").readlines()
 
 print("classes: ", class_names)
 
@@ -85,6 +85,7 @@ while True:
 
                 # Process output
                 index = np.argmax(output_data)
+                print(f"found: {index}")
                 class_name = class_names[index]
                 confidence_score = output_data[0][index]
                 # (Your existing code for displaying text)

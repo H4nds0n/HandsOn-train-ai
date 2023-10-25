@@ -4,12 +4,12 @@ from tqdm import tqdm
 
 # Define the input and output directories
 input_dir = '/Users/floriankainberger/Downloads/ASL_Alphabet_Dataset/asl_alphabet_test'
-output_dir = 'data/test_resized0'
+output_dir = 'data/test_resized2'
 
 # Define the allowed class labels
 # allowed_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'space', 'del', 'nothing']
-allowed_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'space', 'del', 'nothing']
-
+# allowed_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'space', 'del', 'nothing']
+ALLOWED_LABELS = ['A', 'B', 'C']
 # Create the output directory if it doesn't exist
 os.makedirs(output_dir, exist_ok=True)
 
@@ -23,7 +23,7 @@ for file in files:
     filename = os.path.splitext(os.path.basename(file))[0]
 
     className = filename.replace("_test", "")
-    if className in allowed_labels:
+    if className in ALLOWED_LABELS:
         os.makedirs(os.path.join(output_dir, className), exist_ok=True)
 
         input_image_path = os.path.join(input_dir, file)

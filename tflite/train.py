@@ -10,7 +10,7 @@ NUM_CLASSES = 7
 BATCH_SIZE = 32
 NUM_EPOCHS = 10
 
-ITERATION=1
+ITERATION=2
 
 # Define the directory containing the training data
 train_data_dir = f'data/train_resized{ITERATION}'
@@ -91,11 +91,14 @@ test_loss, test_accuracy = model.evaluate(test_generator)
 print(f'Test accuracy: {test_accuracy}')
 
 # Save the model
-model.save(f'models/model{ITERATION}')
+model.save(f'models/model{ITERATION}/asl_model_keras.keras')
 
 
 # Convert the model to TensorFlow Lite
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
+converter.target_spec.supported_ops = [
+tf.lite.OpsSet.TFLITE_BUILTINS # enable TensorFlow Lite ops.
+]
 tflite_model = converter.convert()
 
 # Save the TensorFlow Lite model
