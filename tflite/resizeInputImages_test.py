@@ -4,12 +4,12 @@ from tqdm import tqdm
 
 # Define the input and output directories
 input_dir = '/Users/floriankainberger/Downloads/ASL_Alphabet_Dataset/asl_alphabet_test'
-output_dir = 'data/test_resized2'
+output_dir = 'data/test_resized4'
 
 # Define the allowed class labels
 # allowed_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'space', 'del', 'nothing']
 # allowed_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'space', 'del', 'nothing']
-ALLOWED_LABELS = ['A', 'B', 'C']
+ALLOWED_LABELS = ['A', 'B', 'C', 'nothing']
 # Create the output directory if it doesn't exist
 os.makedirs(output_dir, exist_ok=True)
 

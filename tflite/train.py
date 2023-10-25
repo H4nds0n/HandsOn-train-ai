@@ -10,7 +10,7 @@ NUM_CLASSES = 7
 BATCH_SIZE = 32
 NUM_EPOCHS = 10
 
-ITERATION=2
+ITERATION=4
 
 # Define the directory containing the training data
 train_data_dir = f'data/train_resized{ITERATION}'

@@ -19,11 +19,11 @@ prevKey = ord(".")
 np.set_printoptions(suppress=True)
 
 # Load the TensorFlow Lite model
-interpreter = tf.lite.Interpreter(model_path="models/model2/asl_model2.tflite")
+interpreter = tf.lite.Interpreter(model_path="models/model4/asl_model.tflite")
 interpreter.allocate_tensors()
 
 # Load the labels
-class_names = open("models/model2/labels.txt", "r").readlines()
+class_names = open("models/model4/labels.txt", "r").readlines()
 
 print("classes: ", class_names)
 

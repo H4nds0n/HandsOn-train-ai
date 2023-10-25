@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-ITERATION=2
+ITERATION=4
 
 model = tf.keras.models.load_model(f"models/model{ITERATION}/asl_model_keras.keras")
 
