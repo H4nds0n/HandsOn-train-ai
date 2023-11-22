@@ -1,10 +1,12 @@
 from PIL import Image
 import os
 from tqdm import tqdm
+import numpy as np
+import math
 
 # Define the input and output directories
 input_dir = '/Users/floriankainberger/Downloads/ASL_Alphabet_Dataset/asl_alphabet_train'
-output_dir = 'data/test_resized1'
+output_dir = 'data/test_resized3'
 
 # Define the allowed class labels
 # allowed_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'space', 'del', 'nothing']
@@ -39,10 +41,37 @@ for class_label in os.listdir(input_dir):
 
             # Open and resize the image
             with Image.open(input_image_path) as img:
-                img_resized = img.resize((300, 300))  # Adjust dimensions as needed
+                parentImg = np.ones((300,300,3), np.uint8)*255
+                height, width = img.size
+                aspectRatio = height/width
+                
+                newH = height
+                newW = width
+
+                wGap = 0
+                hGap = 0
+
+                if aspectRatio > 1:
+                    newW = math.floor(300/aspectRatio)
+                    newH = 300
+                    wGap = wGap = math.floor((300-newW)/2)
+                else:
+                    newH = math.floor(300*aspectRatio)
+                    newW = 300
+                    hGap = math.floor((300-newH)/2)
+                
+                resizedImg = img.resize((newW, newH))
+
+                parentImg[hGap:newH+hGap, wGap:newW+wGap] = resizedImg
+
+                
+                result_img = Image.fromarray(parentImg)
+
+                result_img.save(output_image_path)
+                # img_resized = img.resize((300, 300))  # Adjust dimensions as needed
 
                 # Save the resized image
-                img_resized.save(output_image_path)
+                # img_resized.save(output_image_path)
 
             # Update the progress bar
             progress_bar.update(1)

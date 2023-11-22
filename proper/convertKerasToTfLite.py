@@ -12,6 +12,8 @@ tf.lite.OpsSet.TFLITE_BUILTINS # enable TensorFlow Lite ops.
 ]
 tflite_model = converter.convert()
 
+
 # Save the TensorFlow Lite model
 with open(f'models/model{ITERATION}/asl_model2.tflite', 'wb') as f:
     f.write(tflite_model)
+    

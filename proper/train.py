@@ -10,7 +10,7 @@ NUM_CLASSES = 4
 BATCH_SIZE = 32
 NUM_EPOCHS = 10
 
-ITERATION=1
+ITERATION=3
 
 # Define the directory containing the training data
 train_data_dir = f'data/train_resized{ITERATION}'
@@ -46,16 +46,25 @@ with open(labelsFilePath, 'w') as file:
 
 # Build the model
 model = models.Sequential([
-    layers.Conv2D(32, (3, 3), activation='relu', input_shape=(IMG_HEIGHT, IMG_WIDTH, 3)),
+    layers.Conv2D(32, (3, 3), input_shape=(IMG_HEIGHT, IMG_WIDTH, 3)),
+    layers.BatchNormalization(),
+    layers.Activation('relu'),
     layers.MaxPooling2D((2, 2)),
-    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.Conv2D(64, (3, 3)),
+    layers.BatchNormalization(),
+    layers.Activation('relu'),
     layers.MaxPooling2D((2, 2)),
-    layers.Conv2D(128, (3, 3), activation='relu'),
+    layers.Conv2D(128, (3, 3)),
+    layers.BatchNormalization(),
+    layers.Activation('relu'),
     layers.MaxPooling2D((2, 2)),
     layers.Flatten(),
-    layers.Dense(128, activation='relu'),
+    layers.Dense(256, activation='relu'),
+    layers.Dropout(0.5),
     layers.Dense(NUM_CLASSES, activation='softmax')
 ])
+
+model.summary()
 
 # Compile the model
 model.compile(optimizer='adam',
