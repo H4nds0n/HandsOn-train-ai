@@ -23,7 +23,7 @@ def main():
     BATCH_SIZE = 32
     NUM_EPOCHS = 10
 
-    ITERATION=3
+    ITERATION=4
 
     # Define the directory containing the training data
     train_data_dir = f'data/train_resized{ITERATION}'
