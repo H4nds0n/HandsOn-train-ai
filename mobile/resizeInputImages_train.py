@@ -6,13 +6,13 @@ import math
 
 # Define the input and output directories
 input_dir = '/Users/floriankainberger/Downloads/ASL_Alphabet_Dataset/asl_alphabet_train'
-output_dir = 'data/train_resized4'
+output_dir = 'data/train_resized30'
 
 # Define the allowed class labels
 # allowed_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'space', 'del', 'nothing']
 # ALLOWED_LABELS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'space', 'del', 'nothing']
 ALLOWED_LABELS = ['A', 'B', 'C']
-MAX_COUNT_PER_CLASS = 2000
+MAX_COUNT_PER_CLASS = 4000
 
 SIZE = 224
 
@@ -33,7 +33,7 @@ for class_label in os.listdir(input_dir):
         image_files = os.listdir(input_class_dir)
 
         # Create a progress bar
-        progress_bar = tqdm(total=len(image_files), desc=f'Resizing {class_label}', unit='img')
+        progress_bar = tqdm(total=MAX_COUNT_PER_CLASS, desc=f'Resizing {class_label}', unit='img')
 
         # Loop through the images in the class folder
         for image_name in image_files:

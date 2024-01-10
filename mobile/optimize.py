@@ -1,8 +1,8 @@
 import tensorflow as tf
 
-ITERATION = 1
+ITERATION = 40
 
-model = tf.keras.models.load_model(f"./models/model{ITERATION}/in/asl_model_keras.keras")
+model = tf.keras.models.load_model(f"./models/model{ITERATION}/asl_model_keras.keras")
 
 
 # Quantization

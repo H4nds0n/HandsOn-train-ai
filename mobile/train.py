@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import os
 
 def lr_schedule(epoch):
-    lr = 1e-2
+    lr = 1e-3
     if epoch > 5:
         lr *= 0.5
     return lr
@@ -23,7 +23,7 @@ def main():
     BATCH_SIZE = 32
     NUM_EPOCHS = 10
 
-    ITERATION=4
+    ITERATION=14
 
     # Define the directory containing the training data
     train_data_dir = f'data/train_resized{ITERATION}'
@@ -112,9 +112,9 @@ def main():
         shear_range=0.3,
         zoom_range=0.3,
         horizontal_flip=True,
-        rotation_range=30,  # Reduce rotation range
-        width_shift_range=0.3,
-        height_shift_range=0.3
+        rotation_range=50,  # Reduce rotation range
+        width_shift_range=0.4,
+        height_shift_range=0.4
     )
 
     test_datagen = ImageDataGenerator(rescale=1./255)
