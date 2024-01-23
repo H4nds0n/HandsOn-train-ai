@@ -20,11 +20,11 @@ prevKey = ord(".")
 np.set_printoptions(suppress=True)
 
 # Load the TensorFlow Lite model
-interpreter = tf.lite.Interpreter(model_path="models/model33/asl_model_best1.tflite")
+interpreter = tf.lite.Interpreter(model_path="models/model60/asl_model.tflite")
 interpreter.allocate_tensors()
 
 # Load the labels
-class_names = open("models/model31/labels.txt", "r").readlines()
+class_names = open("models/model60/labels.txt", "r").readlines()
 
 print("classes: ", class_names)
 
@@ -90,7 +90,7 @@ while True:
                 class_name = class_names[index]
                 confidence_score = output_data[0][index]
                 # (Your existing code for displaying text)
-                cv2.putText(img, f'ASL Sign: {class_name[2:-1]} ({str(np.round(confidence_score * 100))[:-2]}%)',(x, y+h+50), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (255,0,255), 2)
+                cv2.putText(img, f'ASL Sign: {class_name[0]} ({str(np.round(confidence_score * 100))[:-2]}%)',(x, y+h+50), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (255,0,255), 2)
 
 
 

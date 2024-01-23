@@ -8,9 +8,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 
-test_data_dir = f'data/test_resized2'
-model = load_model("models/model4/asl_model_keras.keras", compile=False)
-class_names = open("models/model4/labels.txt", "r").readlines()
+test_data_dir = f'data/train_resized40'
+model = load_model("models/model51/best_model.keras", compile=False)
+class_names = open("models/model51/labels.txt", "r").readlines()
 
 class_labels = sorted([d for d in os.listdir(test_data_dir) if os.path.isdir(os.path.join(test_data_dir, d))])
 
@@ -34,7 +34,7 @@ plt.xlabel("Predicted")
 plt.ylabel("True")
 
 # Save the confusion matrix under the models/model4/ directory
-save_path = "models/model4/confusion_matrix.png"
+save_path = "models/model51/confusion_matrix_best5.png"
 plt.savefig(save_path)
 
 plt.show()

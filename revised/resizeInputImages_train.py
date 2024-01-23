@@ -6,13 +6,14 @@ import math
 
 # Define the input and output directories
 input_dir = '/Users/floriankainberger/Downloads/ASL_Alphabet_Dataset/asl_alphabet_train'
-output_dir = 'data/train_resized31'
+output_dir = 'data/train_resized60'
 
 # Define the allowed class labels
 # allowed_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'space', 'del', 'nothing']
+# ALLOWED_LABELS = ['A', 'B', 'C', 'D', 'K']
 ALLOWED_LABELS = ['A', 'B', 'C', 'D', 'F', 'H', 'K', 'L', 'O', 'U']
 # ALLOWED_LABELS = ['A', 'B', 'C']
-MAX_COUNT_PER_CLASS = 8000
+MAX_COUNT_PER_CLASS = 4000
 
 SIZE = 224
 
